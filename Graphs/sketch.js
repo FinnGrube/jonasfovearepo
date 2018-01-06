@@ -1,9 +1,9 @@
 let graph = [];
-let count = 20;
-let links = Math.round(count*1.8);
+let count = 5;
+let links = Math.round(count*1.92);
 
 function setup(){
-  createCanvas(1920,1080);
+  createCanvas(1000,600);
 
   for (var i = 0; i < count; i++) {
     graph[i] = new Vertice(i);
@@ -14,7 +14,7 @@ function setup(){
   background(0);
 }
 function draw(){
-  //noLoop();
+  noLoop();
   //background(0);
   stroke(255);
   for (var i = 0; i < graph.length; i++) {
