@@ -5,6 +5,14 @@ class Vertice{
     this.edges = [];
     this.pos = createVector(random(5,width-5),random(5,height-5));
     //console.log("blueberry");
+
+    this.c1 = random(10,255);
+    this.c2 = random(10,255);
+    this.c3 = random(10,255);
+
+
+    this.vel = p5.Vector.random2D();
+    this.vel.mult(2);
   }
 
   update(){
@@ -30,19 +38,22 @@ class Vertice{
   }
 
   show(){
-    ellipse(this.pos.x,this.pos.y,5);
-    //console.log(this.name+": "+this.edges.length);
-    stroke(random(10,255),random(10,255),random(10,255));
+    //ellipse(this.pos.x,this.pos.y,5);
+    stroke(this.c1,this.c2,this.c3);
     if(this.edges.length>0) {
       for(let i=0;i<this.edges.length;i++){
         let v=this.edges[i];
         if(this.name<v.name){
           line(this.pos.x,this.pos.y, v.pos.x,v.pos.y);
-
-          //console.log("line: "+this.pos.x+","+this.pos.y+" to "+v.pos.x+","+v.pos.y);
         }
       }
     }
+  }
+
+  move(){
+    let vel = p5.Vector.random2D();
+    vel.mult(10);
+    this.pos.add(vel);
   }
 
 }
