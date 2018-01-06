@@ -24,7 +24,7 @@ class Vertice{
     let x = this.pos.x - ver.pos.x;
     let y = this.pos.y - ver.pos.y;
     let z = createVector(x,y);
-    return z.mag();
+    return Number((z.mag()).toFixed(2));
   }
 
   put(nextVertice){
@@ -51,7 +51,7 @@ class Vertice{
     stroke(255);
     fill(255);
     textSize(20);
-    text(this.name,this.pos.x+4,this.pos.y+4);
+    text(this.name,this.pos.x+5,this.pos.y-5);
 
     stroke(this.c1,this.c2,this.c3);
     //fill(this.c1,this.c2,this.c3);
@@ -69,7 +69,8 @@ class Vertice{
           let mid= createVector(vx-tx,vy-ty);
           mid.div(2);
           mid.add(createVector(tx,ty));
-          textSize(10);
+          textSize(12);
+          stroke(255);
           text(this.dist[i],mid.x+5,mid.y+5);
         }
       }
