@@ -5,42 +5,42 @@ function shortest(start,end){
   let visited = [];
 
   let current = root;
+  visited.push(current.name);
 
   for(let i = 0; i<stops;i++){
-
-    visited.push(current.name);
-
-    //console.log("stops: "+i+"/"+stops);
-    //console.log(current);
+    console.log(current);
+    console.log(visited);
 
     let copy = reconArr(current.getDist());
-    console.log(copy);
     let sorted = copy.sort(function(a,b){
       //a>b
-        if(a.getA()>b.getA()){
-          return 1;
-        }
-
+        if(a.getA()>b.getA()){return 1;}
       //a<b
-        if(a.getA()<b.getA()){
-          return -1;
-        }
-
+        if(a.getA()<b.getA()){return -1;}
       //a==b or exception
         return 0;
-      }
-    );
+      });
 
     console.log(sorted);
 
     let found = false;
     for(j=0;j<sorted.length && !found ;j++){
-      if(visited.indexOf(sorted[j].name)==-1){
-        if(current[sorted[j].getB()]!=end){
+      console.log("Possible next: "+current.edges[sorted[j].getB()].name);
+
+      let notVis = visited.indexOf(current.edges[sorted[j].getB()].name)==-1;
+      console.log("Not Visited: "+notVis);
+      if(notVis){
+
+        let isNotEnd = current[sorted[j].getB()]!=end;
+        let lastStop = i==(stops-1);
+        console.log(isNotEnd+" :: "+lastStop);
+        if(isNotEnd){
           current = current.edges[sorted[j].getB()];
           visited.push(current.name);
+          console.log("New Current: "+current.name);
           found=true;
-        }else if (i==stops-1) {
+
+        }else if (lastStop && notVis) {
           current = current.edges[sorted[j].getB()];
           visited.push(current.name);
           found=true;
@@ -48,7 +48,7 @@ function shortest(start,end){
       }
     }
 
-    console.log("blueberry");
+    console.log("#####Next Round#####");
   }
 
   console.log("Path: "+visited);
@@ -58,7 +58,7 @@ function shortest(start,end){
 
 
 function reconArr(arr){
-  console.log(arr);
+  //console.log(arr);
   let x = [];
   for(let i=0; i<arr.length;i++){
     let t =new Tupel(arr[i],i);
