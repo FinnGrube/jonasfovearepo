@@ -13,7 +13,7 @@ function shortest(start,end){
     //console.log("stops: "+i+"/"+stops);
     //console.log(current);
 
-    let copy = reconArr(current.getDist());    //TODO
+    let copy = reconArr(current.getDist());
     console.log(copy);
     let sorted = copy.sort(function(a,b){
       //a>b
@@ -56,13 +56,19 @@ function shortest(start,end){
 }
 
 
+
 function reconArr(arr){
+  console.log(arr);
   let x = [];
-  for(let p=0; p<arr.length;p++){
-    x.push(new Tupel(arr[p],p));
+  for(let i=0; i<arr.length;i++){
+    let t =new Tupel(arr[i],i);
+    x.push(t);
   }
   return x;
 }
+
+
+
 
 function compare(a,b){
 //a>b
@@ -78,6 +84,9 @@ function compare(a,b){
 //a==b or exception
   return 0;
 }
+
+
+
 
 class Tupel{
   constructor(a,b){

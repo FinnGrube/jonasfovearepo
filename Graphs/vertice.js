@@ -102,7 +102,7 @@ class Vertice{
   }
 
   getDist(){
-    return dist;
+    return this.dist;
   }
 
 }
