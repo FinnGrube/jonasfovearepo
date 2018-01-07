@@ -5,15 +5,31 @@ function shortest(start,end){
   let visited = [];
 
   let current = root;
-  for(i = 0; i<stops,i++){
-    let sorted = reconArr(current.edges).sort(compare);
-    if(visited.indexOf(current.edges[shortest])==-1){
+  visited.push(current.name);
 
+  for(i = 0; i<stops;i++){
+
+    let sorted = reconArr(current.edges).sort(compare);
+
+    for(j=0;j<sorted.length;j++){
+      if(visited.indexOf(sorted[j].name)==-1){
+        if(current[sorted[j].getB()]!=end){
+          current = current.edges[sorted[j].getB()];
+          visited.push(current.name);
+          break;
+        }else if (i==stops-1) {
+          current = current.edges[sorted[j].getB()];
+          visited.push(current.name);
+          break;
+        }
+      }
     }
   }
 
+  console.log(visited.toString());
 }
 
+/*
 function min(array){
   let m = array[0];
   for (var i = 0; i < array.length; i++) {
@@ -24,6 +40,7 @@ function min(array){
   return array.indexOf(m);
 }
 }
+*/
 
 
 function reconArr(arr){
