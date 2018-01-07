@@ -61,13 +61,14 @@ function drawShortest(vert,way){
   let path = Array.from(way);
   if(path[0]==vert.name){
     path.splice(0,1);
+    strokeWeight(2);
     stroke(255,0,0);
     fill(255,0,0);
     let curr = vert;
     for(let i =0; i<path.length;i++){
       console.log(curr);
 
-      point(curr.pos.x,curr.pos.y,5);
+      point(curr.pos.x,curr.pos.y);
       let next= nextOnPath(curr,path,i);
 
       if(next!=curr){
