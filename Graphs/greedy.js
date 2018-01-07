@@ -1,10 +1,11 @@
-function shortest(start,end){
+function shortest(start,stop){
 
   let root = start;
   let stops = root.edges.length;
   let visited = [];
 
   let current = root;
+  let end = stop;
   visited.push(current.name);
 
   for(let i = 0; i<stops;i++){
@@ -31,7 +32,7 @@ function shortest(start,end){
       //console.log("Not Visited: "+notVis);
       if(notVis){
 
-        let isNotEnd = current[sorted[j].getB()]!=end;
+        let isNotEnd = current.edges[sorted[j].getB()].name!=end.name;
         let lastStop = i==(stops-1);
         //console.log(isNotEnd+" :: "+lastStop);
         if(isNotEnd){
@@ -40,7 +41,7 @@ function shortest(start,end){
           //console.log("New Current: "+current.name);
           found=true;
 
-        }else if (lastStop && notVis) {
+        }else if (lastStop && notVis && !isNotEnd) {
           current = current.edges[sorted[j].getB()];
           visited.push(current.name);
           found=true;
@@ -52,10 +53,40 @@ function shortest(start,end){
   }
 
   //console.log("Path: "+visited);
+  drawShortest(root,visited);
   return visited;
 }
 
+function drawShortest(vert,way){
+  let path = Array.from(way);
+  if(path[0]==vert.name){
+    path.splice(0,1);
+    stroke(255,0,0);
+    fill(255,0,0);
+    let curr = vert;
+    for(let i =0; i<path.length;i++){
+      console.log(curr);
 
+      point(curr.pos.x,curr.pos.y,5);
+      let next= nextOnPath(curr,path,i);
+
+      if(next!=curr){
+        line(curr.pos.x,curr.pos.y,next.pos.x,next.pos.y);
+        curr=next;
+      }
+    }
+  }
+}
+
+function nextOnPath(curr,path,i){
+  for(let j=0;j<curr.edges.length;j++){
+    if(curr.edges[j].name==path[i]){
+      console.log(curr.edges[j]);
+      return curr.edges[j];
+    }
+    return curr;
+  }
+}
 
 function reconArr(arr){
   //console.log(arr);
