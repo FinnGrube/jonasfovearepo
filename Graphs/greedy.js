@@ -1,67 +1,77 @@
 function shortest(start,end){
 
   let root = start;
-  let stops = root.edges.length;
+  let stops = 3;//root.edges.length;
   let visited = [];
 
   let current = root;
-  visited.push(current.name);
 
-  for(i = 0; i<stops;i++){
-    console.log("run: "+i);
-    console.log(current);
+  for(let i = 0; i<stops;i++){
 
-    let copy = reconArr(current.edges);
-    let sorted = copy.sort(compare);
+    visited.push(current.name);
 
-    for(j=0;j<sorted.length;j++){
+    //console.log("stops: "+i+"/"+stops);
+    //console.log(current);
+
+    let copy = reconArr(current.getDist());    //TODO
+    console.log(copy);
+    let sorted = copy.sort(function(a,b){
+      //a>b
+        if(a.getA()>b.getA()){
+          return 1;
+        }
+
+      //a<b
+        if(a.getA()<b.getA()){
+          return -1;
+        }
+
+      //a==b or exception
+        return 0;
+      }
+    );
+
+    console.log(sorted);
+
+    let found = false;
+    for(j=0;j<sorted.length && !found ;j++){
       if(visited.indexOf(sorted[j].name)==-1){
         if(current[sorted[j].getB()]!=end){
           current = current.edges[sorted[j].getB()];
           visited.push(current.name);
-          break;
+          found=true;
         }else if (i==stops-1) {
           current = current.edges[sorted[j].getB()];
           visited.push(current.name);
-          break;
+          found=true;
         }
       }
     }
+
+    console.log("blueberry");
   }
 
-  console.log(visited.toString());
+  console.log("Path: "+visited);
+  return visited;
 }
-
-/*
-function min(array){
-  let m = array[0];
-  for (var i = 0; i < array.length; i++) {
-    if (array[i]<=m) {
-      m=arrray[i];
-    }
-  }
-  return array.indexOf(m);
-}
-}
-*/
 
 
 function reconArr(arr){
   let x = [];
-  for(i=0; i<arr.length;i++){
-    x.push(new Tupel(arr[i],i));
+  for(let p=0; p<arr.length;p++){
+    x.push(new Tupel(arr[p],p));
   }
   return x;
 }
 
 function compare(a,b){
 //a>b
-  if(a.getA>b.getA){
+  if(a.getA()>b.getA()){
     return 1;
   }
 
 //a<b
-  if(a.getA<b.getA){
+  if(a.getA()<b.getA()){
     return -1;
   }
 

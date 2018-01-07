@@ -101,4 +101,8 @@ class Vertice{
 
   }
 
+  getDist(){
+    return dist;
+  }
+
 }
