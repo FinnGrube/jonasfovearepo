@@ -8,8 +8,11 @@ function shortest(start,end){
   visited.push(current.name);
 
   for(i = 0; i<stops;i++){
+    console.log("run: "+i);
+    console.log(current);
 
-    let sorted = reconArr(current.edges).sort(compare);
+    let copy = reconArr(current.edges);
+    let sorted = copy.sort(compare);
 
     for(j=0;j<sorted.length;j++){
       if(visited.indexOf(sorted[j].name)==-1){
@@ -48,6 +51,7 @@ function reconArr(arr){
   for(i=0; i<arr.length;i++){
     x.push(new Tupel(arr[i],i));
   }
+  return x;
 }
 
 function compare(a,b){

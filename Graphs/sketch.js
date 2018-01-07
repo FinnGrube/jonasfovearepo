@@ -6,7 +6,7 @@ For graphs with >=5 vertecies links = count*1.92 to get every link
 */
 
 let graph = [];
-let count = 3;
+let count = 4;
 let links = Math.round(count*1.92);
 
 function setup(){
