@@ -65,11 +65,11 @@ function drawShortest(vert,way){
     stroke(255,0,0);
     fill(255,0,0);
     let curr = vert;
-    for(let i =0; i<path.length;i++){
-      console.log(curr);
+    for(let i =0; i<(path.length);i++){
+      //console.log(curr);
 
-      point(curr.pos.x,curr.pos.y);
-      let next= nextOnPath(curr,path,i);
+      ellipse(curr.pos.x,curr.pos.y,5);
+      let next= nextOnPath(curr,path,i+1);
 
       if(next!=curr){
         line(curr.pos.x,curr.pos.y,next.pos.x,next.pos.y);
