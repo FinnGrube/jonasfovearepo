@@ -1,15 +1,15 @@
 function shortest(start,end){
 
   let root = start;
-  let stops = 3;//root.edges.length;
+  let stops = root.edges.length;
   let visited = [];
 
   let current = root;
   visited.push(current.name);
 
   for(let i = 0; i<stops;i++){
-    console.log(current);
-    console.log(visited);
+    //console.log(current);
+    //console.log(visited);
 
     let copy = reconArr(current.getDist());
     let sorted = copy.sort(function(a,b){
@@ -21,23 +21,23 @@ function shortest(start,end){
         return 0;
       });
 
-    console.log(sorted);
+    //console.log(sorted);
 
     let found = false;
     for(j=0;j<sorted.length && !found ;j++){
-      console.log("Possible next: "+current.edges[sorted[j].getB()].name);
+      //console.log("Possible next: "+current.edges[sorted[j].getB()].name);
 
       let notVis = visited.indexOf(current.edges[sorted[j].getB()].name)==-1;
-      console.log("Not Visited: "+notVis);
+      //console.log("Not Visited: "+notVis);
       if(notVis){
 
         let isNotEnd = current[sorted[j].getB()]!=end;
         let lastStop = i==(stops-1);
-        console.log(isNotEnd+" :: "+lastStop);
+        //console.log(isNotEnd+" :: "+lastStop);
         if(isNotEnd){
           current = current.edges[sorted[j].getB()];
           visited.push(current.name);
-          console.log("New Current: "+current.name);
+          //console.log("New Current: "+current.name);
           found=true;
 
         }else if (lastStop && notVis) {
@@ -48,10 +48,10 @@ function shortest(start,end){
       }
     }
 
-    console.log("#####Next Round#####");
+    //console.log("#####Next Round#####");
   }
 
-  console.log("Path: "+visited);
+  //console.log("Path: "+visited);
   return visited;
 }
 
