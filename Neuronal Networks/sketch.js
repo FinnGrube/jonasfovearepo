@@ -8,7 +8,7 @@ let points = new Array(n);
 
 
 function setup(){
-  createCanvas(700,700);
+  createCanvas(400,400);
   background(255);
 
 
@@ -22,14 +22,18 @@ function setup(){
   for (var i = 0; i < points.length; i++) {
     points[i] = new Point();
   }
-  //console.log(points);
+  console.log(points);
 }
 
 
 function draw(){
   //noLoop();
 
-  line(0,0,width,height);
+  let p1 = new Point(-1,Point.f(-1));
+  let p2 = new Point(1,Point.f(1));
+  line(p1.pixelX,p1.pixelY,p2.pixelX,p2.pixelY);
+
+  //line(0,height,width,0);
 
   for (var i = 0; i < points.length; i++) {
     points[i].show();
@@ -50,7 +54,7 @@ function draw(){
     }
 
     noStroke();
-    ellipse(pt.x,pt.y,5,5);
+    ellipse(pt.pixelX,pt.pixelY,5,5);
   }
 }
 
