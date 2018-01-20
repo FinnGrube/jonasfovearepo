@@ -1,5 +1,5 @@
 class Vertice{
-  constructor(_name){
+  constructor(_name,_len,_pointer){
     this.name = _name;
     this.degree = 0;
     this.edges = [];
@@ -7,9 +7,12 @@ class Vertice{
     this.pos = createVector(random(5,width-5),random(5,height-5));
     //console.log("blueberry");
 
+    this.viewLen = _len || false;
+    this.viewPointer = _pointer || false;
+
     this.c1 = random(10,200);
-    this.c2 = random(10,255);
-    this.c3 = random(10,255);
+    this.c2 = random(10,200);
+    this.c3 = random(10,200);
 
 
     this.vel = p5.Vector.random2D();
@@ -69,15 +72,24 @@ class Vertice{
           let vy=v.Y;
           line(tx,ty,vx,vy);
 
-          let mid= createVector(vx-tx,vy-ty);
-          mid.div(2);
-          mid.add(createVector(tx,ty));
-          textSize(12);
-          fill(255);
-          stroke(this.c1,this.c2,this.c3);
-          text(this.dist[i],mid.x+5,mid.y+5);
+          if(this.viewLen){
+            let mid= createVector(vx-tx,vy-ty);
+            mid.div(2);
+            mid.add(createVector(tx,ty));
+            textSize(12);
+            fill(255);
+            stroke(this.c1,this.c2,this.c3);
+            text(this.dist[i],mid.x+5,mid.y+5);
+          }
         }
       }
+    }
+
+    if(this.viewPointer){
+      let arrow = this.vel.copy();
+      arrow.mult(10);
+      stroke(255);
+      line(this.X,this.Y,this.X+arrow.x,this.Y+arrow.y);
     }
   }
 
@@ -86,15 +98,21 @@ class Vertice{
     return this.vel;
   }
 
+  applyVelocity(v){
+    let x = v || this.vel;
+    this.pos.add(x);
+    return this.pos;
+  }
+
   move(){
-    let border=5;
+    let border=20;
     let breaking = 0.85;
+    let g = 0.5;
 
     let acc = p5.Vector.random2D();
     acc.mult(0.1);
     this.vel.add(acc);
-    //this.vel.mult(0.1)
-    this.pos.add(this.vel);
+    this.applyVelocity(this.vel);
 
     if(this.X>width-border||this.X<0+border){
       this.vel.x*=(-1);
@@ -103,6 +121,21 @@ class Vertice{
     if(this.Y>height-border||this.Y<0+border){
       this.vel.y*=(-1);
       this.vel.mult(breaking);
+    }
+
+    if(this.X<border){this.pos.x=border;}
+    if(this.Y<border){this.pos.y=border;}
+    if(this.X>width-border){this.pos.x=width-border;}
+    if(this.Y>height-border){this.pos.y=height-border;}
+
+
+    for (var n in this.edges) {
+      let dir = this.pos.copy().sub(n.pos);
+      dir.setMag(g/dir.mag());
+      //dir.mult(-1);
+      stroke(255);
+      //line(this.X,this.Y,this.X+dir.x,this.Y+dir.y);
+      this.applyForce(dir);
     }
 
     this.update();
@@ -129,7 +162,6 @@ class Vertice{
   get X(){
     return this.pos.x;
   }
-
 
   get Y(){
       return this.pos.y;
