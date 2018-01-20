@@ -9,6 +9,9 @@ let graph = [];
 let count = 5;
 let links = Math.round(count*1.92);
 
+let start =0;
+let dest = 4;
+
 function setup(){
   createCanvas(1000,600);
 
@@ -34,15 +37,20 @@ function setup(){
   randomLink();
 
   background(0);
-  noLoop();
+  //noLoop();
 }
+
 function draw(){
   background(0);
   stroke(255);
   for (var i = 0; i < graph.length; i++) {
-    graph[i].show();
     graph[i].move();
   }
+  for (var i = 0; i < graph.length; i++) {
+    graph[i].show();
+  }
+
+  graph[start].markPath(shortest(graph[start],graph[dest]));
 }
 
 

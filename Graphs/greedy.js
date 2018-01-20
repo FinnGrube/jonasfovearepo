@@ -53,7 +53,8 @@ function shortest(start,stop){
   }
 
   //console.log("Path: "+visited);
-  drawShortest(root,visited);
+  //drawShortest(root,visited);
+  root.markPath(visited);
   return visited;
 }
 
@@ -68,11 +69,11 @@ function drawShortest(vert,way){
     for(let i =0; i<(path.length);i++){
       //console.log(curr);
 
-      ellipse(curr.pos.x,curr.pos.y,5);
+      ellipse(curr.X,curr.Y,5);
       let next= nextOnPath(curr,path,i+1);
 
       if(next!=curr){
-        line(curr.pos.x,curr.pos.y,next.pos.x,next.pos.y);
+        line(curr.X,curr.Y,next.X,next.Y);
         curr=next;
       }
     }
