@@ -7,7 +7,7 @@ class Vertice{
     this.pos = createVector(random(5,width-5),random(5,height-5));
     //console.log("blueberry");
 
-    this.c1 = random(10,255);
+    this.c1 = random(10,200);
     this.c2 = random(10,255);
     this.c3 = random(10,255);
 
@@ -81,9 +81,14 @@ class Vertice{
     }
   }
 
+  applyForce(f){
+    this.vel.add(f);
+    return this.vel;
+  }
+
   move(){
     let border=5;
-
+    let breaking = 0.85;
 
     let acc = p5.Vector.random2D();
     acc.mult(0.1);
@@ -93,11 +98,11 @@ class Vertice{
 
     if(this.X>width-border||this.X<0+border){
       this.vel.x*=(-1);
-      this.vel.mult(0.99);
+      this.vel.mult(breaking);
     }
     if(this.Y>height-border||this.Y<0+border){
       this.vel.y*=(-1);
-      this.vel.mult(0.99);
+      this.vel.mult(breaking);
     }
 
     this.update();

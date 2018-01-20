@@ -13,7 +13,7 @@ let start =0;
 let dest = 4;
 
 function setup(){
-  createCanvas(1000,600);
+  createCanvas(1500,900);
 
   if(count <=1){
     links = 0;
@@ -40,9 +40,15 @@ function setup(){
   //noLoop();
 }
 
+
+
 function draw(){
   background(0);
   stroke(255);
+  strokeWeight(1);
+
+  gravitation();
+
   for (var i = 0; i < graph.length; i++) {
     graph[i].move();
   }
@@ -50,8 +56,9 @@ function draw(){
     graph[i].show();
   }
 
-//  graph[start].markPath(shortest(graph[start],graph[dest],graph.lengt-1));
+ graph[start].markPath(shortest(graph[start],graph[dest],graph.length));
 }
+
 
 
 function randomLink(){
@@ -70,6 +77,22 @@ function randomLink(){
     //  console.log("Linking "+r1+" to "+r2);
     }else{
       i--;
+    }
+  }
+}
+
+function gravitation(_G){
+  let g = _G||5;//0-1
+  let size = sqrt((width^2)+(height^2));
+  for (let i = 0; i < graph.length; i++) {
+    let curr = graph[i];
+    for(let j=0;j<curr.edges.length;j++){
+      let f = curr.pos.sub(curr.edges[j].pos);
+      let dst = map(f.mag(),0,size,0,1);
+      //f.setMag(g/dst);
+      curr.edges[j].applyForce(f);
+      let counter = f.mult(-1);
+      curr.applyForce(counter);
     }
   }
 }
