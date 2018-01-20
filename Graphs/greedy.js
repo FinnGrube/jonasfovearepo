@@ -1,7 +1,7 @@
-function shortest(start,stop){
+function shortest(start,stop,length){
 
   let root = start;
-  let stops = root.edges.length;
+  let stops = length || root.edges.length;
   let visited = [];
 
   let current = root;

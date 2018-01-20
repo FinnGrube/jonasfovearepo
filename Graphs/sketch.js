@@ -6,7 +6,7 @@ For graphs with >=5 vertecies links = count*1.92 to get every link
 */
 
 let graph = [];
-let count = 5;
+let count = 7;
 let links = Math.round(count*1.92);
 
 let start =0;
@@ -26,7 +26,7 @@ function setup(){
   }else if(count == 5){
     links = Math.round(count*1.92)
   }else{
-    links = Math.round(count*2)
+    links = Math.round(count*2.5)
   }
 
 
@@ -50,7 +50,7 @@ function draw(){
     graph[i].show();
   }
 
-  graph[start].markPath(shortest(graph[start],graph[dest]));
+//  graph[start].markPath(shortest(graph[start],graph[dest],graph.lengt-1));
 }
 
 
