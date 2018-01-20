@@ -18,6 +18,9 @@ class Vertice{
 
   update(){
     this.degree = this.edges.length;
+    for(let i=0;i<this.edges.length;i++){
+      this.dist[i]=this.calcDist(this.edges[i]);
+    }
   }
 
   calcDist(ver){
@@ -81,6 +84,11 @@ class Vertice{
     let vel = p5.Vector.random2D();
     vel.mult(10);
     this.pos.add(vel);
+
+    this.pos.x=abs(this.pos.x % width);
+    this.pos.y=abs(this.pos.y % height);
+
+    this.update();
   }
 
   search(ver){
