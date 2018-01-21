@@ -110,7 +110,7 @@ class Vertice{
     let g = 0.5;
 
     let acc = p5.Vector.random2D();
-    acc.mult(0.1);
+    acc.mult(0.05);
     this.vel.add(acc);
     this.applyVelocity(this.vel);
 
@@ -180,7 +180,7 @@ class Vertice{
         strokeWeight(2);
 
         //draw dot
-        if(i==0||i==path.length-1){
+        if(this.name == path[0]||this.name == path[path.length-1]){
           ellipse(this.X,this.Y,8,8);
         }
 
