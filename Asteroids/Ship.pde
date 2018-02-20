@@ -1,8 +1,7 @@
 class Ship {
   public PVector pos;
   private float speed;
-  private PVector left;
-  private PVector right;
+  private PVector left,right,up,down;
   private float wid = 30;
   private float hei = wid/2;
 
@@ -12,6 +11,8 @@ class Ship {
 
     left = new PVector((-1)*this.speed, 0);
     right = new PVector(this.speed, 0);
+    up = new PVector(0,(-1)*this.speed);
+    down = new PVector(0,this.speed);
 
     //println(this.toString());
   }
@@ -22,6 +23,16 @@ class Ship {
 
   public void moveRight() {
     this.pos.add(this.right);
+  }
+  
+  
+  public void moveUp() {
+    this.pos.add(this.up);
+  }
+  
+  
+  public void moveDown() {
+    this.pos.add(this.down);
   }
 
   public void show() {

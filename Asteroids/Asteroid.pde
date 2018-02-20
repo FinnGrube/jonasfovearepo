@@ -21,4 +21,12 @@ class Asteroid{
     fill(125,120,120);
     ellipse(this.pos.x,this.pos.y,this.size,this.size*0.5*this.vel.mag());
   }
+  
+  public boolean inFrame(){    
+    if(this.pos.y<0||this.pos.y>height){
+      return false;
+    }
+    
+    return true;
+  }
 }
