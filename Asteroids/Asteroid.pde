@@ -18,7 +18,7 @@ class Asteroid{
   }
   
   void show(){
-    fill(125,120,120);
+    fill(140,120,120);
     ellipse(this.pos.x,this.pos.y,this.size,this.size*0.5*this.vel.mag());
   }
   

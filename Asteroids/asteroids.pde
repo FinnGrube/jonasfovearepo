@@ -2,13 +2,13 @@ import java.util.*;
 
 
 ArrayList<Asteroid> a_list = new ArrayList();
-int count = 60;
+int spawn_rate = 15;
 int counter=0;
 Ship s = new Ship(width/2, 950, 10);
 
 void setup() {
   size(800, 1000);
-  frameRate(30);
+  frameRate(60);
   //println(width+"::"+height);
 }
 
@@ -16,14 +16,10 @@ void draw() {
   background(0);
   stroke(255);
   
-  fill(255);
-  textSize(32);
-  text("Length: "+a_list.size(),10,40);
-  
   //line(0, 965, width, 965);
   s.show();
 
-  if (frameCount%count==0) {
+  if (frameCount%spawn_rate==0) {
     a_list.add(new Asteroid(random(width), random(0, 10), 10));
   }
   ArrayList<Asteroid> rem = new ArrayList();
@@ -44,6 +40,11 @@ void draw() {
     counter++;
   }
   //println(counter);
+  
+  fill(255);
+  textSize(32);
+  text("Asteroids: "+a_list.size(),10,40);
+  text("FPS: "+frameRate,10,74);
 }
 
 void keyPressed() {
