@@ -1,38 +1,52 @@
-class Hitbox{
-  private float x_min,x_max,y_min,y_max;
-  
-  public Hitbox(float x_min_, float x_max_, float y_min_, float y_max_){
-   x_min = x_min_;
-   x_max = x_max_;
-   y_min = y_min_;
-   y_max = y_max_;
+class Hitbox {
+  private float x_min, x_max, y_min, y_max;
+
+  public Hitbox(float x_min_, float x_max_, float y_min_, float y_max_) {
+    x_min = x_min_;
+    x_max = x_max_;
+    y_min = y_min_;
+    y_max = y_max_;
   }
-  
-  public float xMax(){
+
+  public float xMax() {
     return x_max;
   }
-  public float xMin(){
+  public float xMin() {
     return x_min;
   }
-  public float yMax(){
+  public float yMax() {
     return y_max;
   }
-  public float yMin(){
+  public float yMin() {
     return y_min;
   }
-  
-  public Boolean isHitting(Hitbox hit){
-    boolean x_dir = between(hit.xMax(),this.xMin(),this.xMax()) || between(hit.xMin(),this.xMin(),this.xMax());
-    boolean y_dir = between(hit.yMax(),this.yMin(),this.yMax()) || between(hit.yMin(),this.yMin(),this.yMax());
-    
+
+  public Boolean isHitting(Hitbox hit) {
+    boolean x_dir = between(hit.xMax(), this.xMin(), this.xMax()) || between(hit.xMin(), this.xMin(), this.xMax());
+    boolean y_dir = between(hit.yMax(), this.yMin(), this.yMax()) || between(hit.yMin(), this.yMin(), this.yMax());
+
     return x_dir&&y_dir;
   }
-  
-  public Boolean between(float x, float a, float b){
-    if(x>a&&x<b){
+
+  public Boolean between(float x, float a, float b) {
+    if (x>a&&x<b) {
       return true;
     }
-    
+
     return false;
+  }
+  
+  public void show(){
+    float wid = this.xMax()-this.xMin();
+    float hei = this.yMax()-this.yMin();
+    
+    float x = this.xMin()+wid/2;
+    float y = this.yMin()+hei/2;
+    
+    noFill();
+    stroke(255,0,0);
+    rect(x,y,wid,hei);
+    
+    
   }
 }

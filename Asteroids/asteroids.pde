@@ -5,11 +5,11 @@ ArrayList<Asteroid> a_list = new ArrayList();
 int level = 1;
 float spawn_rate = frameRate*10/level;
 int counter=0;
-Ship s = new Ship(400, 950, 10);
+Ship s = new Ship(400, 950, 10, 100);
 boolean prev_hit=false;
 
 void setup() {
-  size(800, 1000);
+  size(1000, 1400);
   frameRate(60);
   //println(width+"::"+height);
 }
@@ -20,24 +20,26 @@ void draw() {
   } else {
     background(0);
   }
-  
+
   prev_hit=false;
-  
+
   stroke(255);
 
   //line(0, 965, width, 965);
   s.show();
+  s.getHitbox().show();
 
   if (frameCount%spawn_rate==0) {
-    a_list.add(new Asteroid(random(width), random(0, 10), 10));
+    a_list.add(new Asteroid(random(width), random(0, 10), 40));
   }
   ArrayList<Asteroid> rem = new ArrayList();
   for (Asteroid x : a_list) {
     if (!x.inFrame()) {
       rem.add(x);
     } else {
-      x.show();
       x.move();
+      x.show();
+      x.getHitbox().show();
     }
   }
 
@@ -46,12 +48,11 @@ void draw() {
   }
 
   float c = s.isHit(a_list);
-  if(c!=0){
+  if (c!=0) {
     prev_hit=true;
   }
   counter += c;
 
-  //println(counter);
 
   fill(255);
   textSize(32);
