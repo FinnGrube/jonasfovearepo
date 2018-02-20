@@ -2,9 +2,11 @@ import java.util.*;
 
 
 ArrayList<Asteroid> a_list = new ArrayList();
-int spawn_rate = 15;
+int level = 1;
+float spawn_rate = frameRate*10/level;
 int counter=0;
-Ship s = new Ship(width/2, 950, 10);
+Ship s = new Ship(400, 950, 10);
+boolean prev_hit=false;
 
 void setup() {
   size(800, 1000);
@@ -13,9 +15,16 @@ void setup() {
 }
 
 void draw() {
-  background(0);
-  stroke(255);
+  if (prev_hit) {
+    background(255, 0, 0);
+  } else {
+    background(0);
+  }
   
+  prev_hit=false;
+  
+  stroke(255);
+
   //line(0, 965, width, 965);
   s.show();
 
@@ -24,27 +33,31 @@ void draw() {
   }
   ArrayList<Asteroid> rem = new ArrayList();
   for (Asteroid x : a_list) {
-    if(!x.inFrame()){
+    if (!x.inFrame()) {
       rem.add(x);
-    }else{
-    x.show();
-    x.move();
+    } else {
+      x.show();
+      x.move();
     }
   }
-  
-  for(Asteroid r: rem){
+
+  for (Asteroid r : rem) {
     a_list.remove(r);
   }
-  
-  if(s.isHit(a_list)){
-    counter++;
+
+  float c = s.isHit(a_list);
+  if(c!=0){
+    prev_hit=true;
   }
+  counter += c;
+
   //println(counter);
-  
+
   fill(255);
   textSize(32);
-  text("Asteroids: "+a_list.size(),10,40);
-  text("FPS: "+frameRate,10,74);
+  text("Asteroids: "+a_list.size(), 10, 40);
+  text("FPS: "+frameRate, 10, 74);
+  //text("Hits: "+counter, 10, 110);
 }
 
 void keyPressed() {
@@ -63,16 +76,16 @@ void keyPressed() {
       }  
       break;
     }
-    
-    case UP:
+
+  case UP:
     {
       if (s.pos.y>0) {
         s.moveUp();
       }  
       break;
     }
-    
-    case DOWN:
+
+  case DOWN:
     {
       if (s.pos.y<height) {
         s.moveDown();

@@ -45,21 +45,17 @@ class Ship {
     return "Ship:: pos_x: "+this.pos.x+" pos_y: "+this.pos.y;
   }
 
-  public Boolean isHit(ArrayList<Asteroid> list) {
-    float x = this.pos.x;
-    float y = this.pos.y;
+  public Hitbox getHitbox(){
+    return new Hitbox(this.pos.x-this.wid/2,this.pos.x+this.wid/2,this.pos.y-this.hei/2,this.pos.y+this.hei/2);
+  }
 
-    for (Asteroid a : list) {
-      float a_x = a.pos.x;
-      float a_y = a.pos.y;
-
-      if (x+wid/2<a_x&&a_x<x-wid/2) {
-        if (y+hei/2<a_y&&a_y<y-hei/2) {
-          return true;
-        }
+  public int isHit(ArrayList<Asteroid> list) {
+    int c=0;
+    for(Asteroid a: list){
+      if(this.getHitbox().isHitting(a.getHitbox())){
+        c++;
       }
     }
-
-    return false;
+    return c;
   }
 }
